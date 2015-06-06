@@ -1,0 +1,425 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+  <head> 
+    <meta charset="utf-8" /> 
+    <link rel="stylesheet" href="style/reset.less.css" /> 
+    <link rel="stylesheet" href="style/base.less.css" /> 
+    <link rel="stylesheet" href="style/code.less.css" />  
+    <title>Gradle</title> 
+    <script src="deckjs/jquery-1.7.min.js"></script> 
+    <script src="deckjs/modernizr.custom.js"></script> 
+    <script src="deckjs/core/deck.core.js"></script> 
+    <link rel="stylesheet" href="deckjs/core/deck.core.css" /> 
+    <link rel="stylesheet" href="deckjs/themes/transition/horizontal-slide.css" /> 
+    <script src="deckjs/extensions/hash/deck.hash.js"></script> 
+    <script src="deckjs/extensions/notes/deck.notes.js"></script> 
+    <script src="deckjs/extensions/clone/deck.clone.js"></script> 
+    <script src="deckjs/extensions/scale-selector/deck.scale-selector.js"></script> 
+    <link rel="stylesheet" href="deckjs/extensions/scale-selector/deck.scale-selector.css" /> 
+    <link rel="stylesheet" href="style/slideshow.less.css" /> 
+    <script src="init.js"></script> 
+  </head> 
+  <body class=" deck-container"> 
+    <section class="slide title-slide"> 
+      <div class="inner"> 
+        <div class="title-slide-content"> 
+          <h1>Gradle</h1> 
+          <p>Standardizing and Administering your <br />Enterprise Build Environment with Gradle.</p> 
+        </div> 
+      </div> 
+    </section> 
+    <section class="slide"> 
+      <div class="inner"> 
+        <h2>About Me</h2> 
+        <ul> 
+          <li>Luke Daley</li> 
+          <li>Principal Engineer</li> 
+          <li>luke.daley@gradleware.com</li> 
+          <li>Located in London</li> 
+        </ul> 
+      </div> 
+    </section> 
+    <section class="slide"> 
+      <div class="inner"> 
+        <h2>Slides &amp; Demos</h2> 
+        <p>Content can be downloaded from GitHub.</p> 
+        <p><a href="https://github.com/gradleware/gradle-talks/downloads">https://github.com/gradleware/gradle-talks/downloads</a></p> 
+        <p>Download “<code><span class="java_plain">gradle</span><span class="java_operator">-</span><span class="java_plain">enterprise</span><span class="java_operator">-</span><span class="java_plain">admin</span><span class="java_separator">.</span><span class="java_plain">zip</span></code>”.</p> 
+        <p>Contains:</p> 
+        <ul> 
+          <li>Example code</li> 
+          <li>HTML slides</li> 
+          <li>PDF slides</li> 
+        </ul> 
+      </div> 
+    </section> 
+    <section class="slide"> 
+      <div class="inner"> 
+        <h2>Upcoming Webinars</h2> 
+        <p>Upcoming Webinars can always be found @ <a href="http://gradle.org/webinars">http://gradle.org/webinars</a>.</p> 
+        <ul> 
+          <li><a href="http://gradleware.com/news/100">Migrating and Upgrading to Gradle</a> by <a href="http://www.gradleware.com/team#szczepan-faber">Szczepan Faber</a></li> 
+        </ul> 
+        <p>Past webinar recordings can always be found at <a href="http://gradleware.com/resources">http://gradleware.com/resources</a>.</p> 
+        <ul> 
+          <li><a href="http://gradleware.com/news/62">The Gradle Roadmap</a> by <a href="http://www.gradleware.com/team#hans-dockter">Hans Dockter</a></li> 
+          <li><a href="http://gradleware.com/news/83">A Gentle Introduction to Gradle</a> by <a href="http://www.gradleware.com/team#tim-berglund">Tim Berglund</a></li> 
+          <li><a href="http://gradleware.com/news/89">Gradle Power Features</a> by <a href="http://www.gradleware.com/team#szczepan-faber">Szczepan Faber</a></li> 
+        </ul> 
+      </div> 
+    </section> 
+    <section class="slide"> 
+      <div class="inner"> 
+        <h2>The Gradle Book</h2> 
+        <p>The first of these three books was launched in July of 2011 and is 80 pages of the foundations of Gradle as written by Tim Berglund and Matthew McCullough.</p> 
+        <p><img src="img/building-and-testing-with-gradle-book.gif" style="box-shadow: 0px 0px 6px #888;" /></p> 
+        <p style="text-align: center">Free HTML version online @ <a href="http://gradleware.com/resources" title="Gradleware - Resources">http://gradleware.com/resources</a>.</p> 
+      </div> 
+    </section> 
+    <section class="slide"> 
+      <div class="inner"> 
+        <h2>Webinar Mechanics</h2> 
+        <p>Use the question feature of the UI to ask questions.</p> 
+        <p>I'll stop periodically to review the questions.</p> 
+        <p>If you don't get your question answered, email me afterwards.</p> 
+      </div> 
+    </section> 
+    <section class="slide title-slide"> 
+      <div class="inner"> 
+        <div class="title-slide-content"> 
+          <h1>Background</h1> 
+          <p>What are we talking about?</p> 
+        </div> 
+      </div> 
+    </section> 
+    <section class="slide"> 
+      <div class="inner"> 
+        <h2>Automation is personal</h2> 
+        <ul> 
+          <li>Only the simplest of software can be built in <em>near identical</em> ways.</li> 
+          <li>Convention over configuration let us stop inventing the wheel.</li> 
+          <li>Rigid conventions inhibit innovation and efficiency.</li> 
+          <li>Modern automation needs to be ambitious, effective and pervasive.</li> 
+        </ul> 
+        <aside class="notes"> 
+          <p>Only the simplest of software can be built in <em>near identical</em> ways. However, “convention over configuration” let us stop inventing the wheel.</p> 
+          <p>On the other hand, rigid conventions very quickly inhibit innovation and efficiency. Building real world software is very often not a generally prescriptable affair, with custom functionality or compliance requirements.</p> 
+          <p>In the modern software world of continuous delivery and frequent releases, automation needs to be ambitious, effective and pervasive.</p> 
+        </aside> 
+      </div> 
+    </section> 
+    <section class="slide"> 
+      <div class="inner"> 
+        <h2>Whose conventions?</h2> 
+        <p>Conventions are great, and Gradle embraces them. However, whose conventions are these?</p> 
+        <p><strong>You might want to extend the conventions.</strong></p> 
+        <ul> 
+          <li>e.g. all projects use CheckStyle for static analysis</li> 
+        </ul> 
+        <p><strong>You might want to replace general conventions with your own.</strong></p> 
+        <ul> 
+          <li>e.g. “main” source is meaningless to me</li> 
+        </ul> 
+      </div> 
+    </section> 
+    <section class="slide"> 
+      <div class="inner"> 
+        <h2>Gradle is a toolkit</h2> 
+        <p>Gradle is a collection of tools, like Ant.</p> 
+        <p>Unlike Ant, Gradle also contains tools for standardisation, reuse and conventions.</p> 
+        <ul> 
+          <li>Plugins</li> 
+          <li>Plugin stacks</li> 
+          <li>Configuration Rules</li> 
+          <li>DSL Extensions</li> 
+          <li>Init Scripts</li> 
+        </ul> 
+      </div> 
+    </section> 
+    <section class="slide"> 
+      <div class="inner"> 
+        <h2>Overview</h2> 
+        <ul> 
+          <li>Deep API</li> 
+          <li>Configuration Rules</li> 
+          <li>Plugins</li> 
+          <li>Init Scripts</li> 
+          <li>Custom Distributions</li> 
+        </ul> 
+      </div> 
+    </section> 
+    <section class="slide"> 
+      <div class="inner"> 
+        <h2>Deep API</h2> 
+        <p>Many aspects of Gradle are configurable. It pays to dig through the API doc.</p> 
+        <p><strong>Example:</strong> How do I enforce that no one can compile against Hibernate?</p> 
+        <ul> 
+          <li><em>[demos/01-deep-api-dependency-rules]</em></li> 
+        </ul> 
+        <p><strong>Example</strong>: How do I verify the existence of a “<code><span class="java_plain">test</span></code>” task?</p> 
+        <ul> 
+          <li><em>[demos/02-deep-api-require-task]</em></li> 
+        </ul> 
+      </div> 
+    </section> 
+    <section class="slide"> 
+      <div class="inner"> 
+        <h2>Deep API (cont.)</h2> 
+        <p>A design philosophy of Gradle is to give you deep access to the entire model.</p> 
+        <p>The API is often described as an Onion Skin API.</p> 
+        <p>Reading the Gradle Javadoc does not mean you are doing something wrong.</p> 
+      </div> 
+    </section> 
+    <section class="slide"> 
+      <div class="inner"> 
+        <h2>Configuration Rules</h2> 
+        <p>Gradle provides many ways to configure future objects.</p> 
+        <p>You often want to configure things that you don't know about.</p> 
+        <p><strong>Example:</strong> How do configure all test tasks to be as parallel as they can be?</p> 
+        <ul> 
+          <li><em>[demos/03-configuration-rule-parallel-tests]</em></li> 
+        </ul> 
+        <p><strong>Example:</strong> How do I disallow Hibernate as a dependency at all (e.g. <code><span class="java_plain">compile</span></code>, <code><span class="java_plain">test</span></code>, <code><span class="java_plain">runtime</span></code>)?</p> 
+        <ul> 
+          <li><em>[demos/04-configuration-rule-dependency-rules]</em></li> 
+        </ul> 
+      </div> 
+    </section> 
+    <section class="slide"> 
+      <div class="inner"> 
+        <h2>Configuration Rules (cont.)</h2> 
+        <p>Based on <a href="http://gradle.org/docs/current/javadoc/org/gradle/api/DomainObjectCollection.html"><code><span class="java_type">DomainObjectCollection</span><span class="java_plain"></span></code></a> and <a href="http://gradle.org/docs/current/javadoc/org/gradle/api/NamedDomainObjectCollection.html"><code><span class="java_type">NamedDomainObjectCollection</span><span class="java_plain"></span></code></a>.</p> 
+        <p>Java Collections that support “liveness.”</p> 
+        <pre class=" code"><code><span class="java_keyword">def</span><span class="java_plain">&nbsp;numbers&nbsp;</span><span class="java_operator">=</span><span class="java_plain">&nbsp;</span><span class="java_keyword">new</span><span class="java_plain">&nbsp;</span><span class="java_type">DefaultDomainObjectCollection</span><span class="java_separator">(</span><span class="java_type">Number</span><span class="java_separator">,</span><span class="java_plain">&nbsp;</span><span class="java_separator">[</span><span class="java_literal">1</span><span class="java_separator">,</span><span class="java_plain">&nbsp;</span><span class="java_literal">2</span><span class="java_separator">])</span><span class="java_plain"></span>
+<span class="java_plain"></span>
+<span class="java_keyword">def</span><span class="java_plain">&nbsp;evenNumbers&nbsp;</span><span class="java_operator">=</span><span class="java_plain">&nbsp;numbers</span><span class="java_separator">.</span><span class="java_plain">matching&nbsp;</span><span class="java_separator">{</span><span class="java_plain">&nbsp;it&nbsp;</span><span class="java_operator">%</span><span class="java_plain">&nbsp;</span><span class="java_literal">2</span><span class="java_plain">&nbsp;</span><span class="java_operator">==</span><span class="java_plain">&nbsp;</span><span class="java_literal">0</span><span class="java_plain">&nbsp;</span><span class="java_separator">}</span><span class="java_plain"></span>
+<span class="java_keyword">assert</span><span class="java_plain">&nbsp;evenNumbers&nbsp;</span><span class="java_operator">==</span><span class="java_plain">&nbsp;</span><span class="java_separator">[</span><span class="java_literal">2</span><span class="java_separator">]</span><span class="java_plain"></span>
+<span class="java_plain"></span>
+<span class="java_plain">numbers&nbsp;</span><span class="java_operator">&lt;&lt;</span><span class="java_plain">&nbsp;</span><span class="java_literal">4</span><span class="java_plain"></span>
+<span class="java_keyword">assert</span><span class="java_plain">&nbsp;evenNumbers&nbsp;</span><span class="java_operator">==</span><span class="java_plain">&nbsp;</span><span class="java_separator">[</span><span class="java_literal">2</span><span class="java_separator">,</span><span class="java_plain">&nbsp;</span><span class="java_literal">4</span><span class="java_separator">]</span><span class="java_plain"></span></code></pre> 
+      </div> 
+    </section> 
+    <section class="slide"> 
+      <div class="inner"> 
+        <h2>Configuration Rules (cont.)</h2> 
+        <p>Many objects you use in Gradle are live collections.</p> 
+        <ul> 
+          <li><code><span class="java_plain">project</span><span class="java_separator">.</span><span class="java_plain">tasks</span></code> - <a href="http://gradle.org/docs/current/javadoc/org/gradle/api/tasks/TaskContainer.html">TaskContainer</a></li> 
+          <li><code><span class="java_plain">project</span><span class="java_separator">.</span><span class="java_plain">plugins</span></code> - <a href="http://gradle.org/docs/current/javadoc/org/gradle/api/plugins/PluginContainer.html">PluginContainer</a></li> 
+          <li><code><span class="java_plain">project</span><span class="java_separator">.</span><span class="java_plain">configurations</span></code> - <a href="http://gradle.org/docs/current/javadoc/org/gradle/api/artifacts/ConfigurationContainer.html">ConfigurationContainer</a></li> 
+          <li><code><span class="java_plain">project</span><span class="java_separator">.</span><span class="java_plain">repositories</span></code> - <a href="http://gradle.org/docs/current/javadoc/org/gradle/api/artifacts/dsl/RepositoryHandler.html">RepositoryHandler</a></li> 
+          <li><code><span class="java_plain">project</span><span class="java_separator">.</span><span class="java_plain">sourceSets</span></code> - <a href="http://gradle.org/docs/current/javadoc/org/gradle/api/tasks/SourceSetContainer.html">SourceSetContainer</a></li> 
+          <li><code><span class="java_plain">project</span><span class="java_separator">.</span><span class="java_plain">&laquo;configuration&raquo;</span><span class="java_separator">.</span><span class="java_plain">dependencies</span></code> - <a href="http://gradle.org/docs/current/javadoc/org/gradle/api/artifacts/DependencySet.html">DependencySet</a></li> 
+        </ul> 
+      </div> 
+    </section> 
+    <section class="slide"> 
+      <div class="inner"> 
+        <h2>Configuration Rules (cont.)</h2> 
+        <p>Some common use cases…</p> 
+        <p>Run some code against all things that exist now and in the future:</p> 
+        <pre class=" code"><code><span class="java_plain">tasks</span><span class="java_separator">.</span><span class="java_plain">all&nbsp;</span><span class="java_separator">{</span><span class="java_plain">&nbsp;</span><span class="java_separator">}</span><span class="java_plain"></span></code></pre> 
+        <p>Do something when new things are added:</p> 
+        <pre class=" code"><code><span class="java_plain">repositories</span><span class="java_separator">.</span><span class="java_plain">whenObjectAdded&nbsp;</span><span class="java_separator">{</span><span class="java_plain">&nbsp;</span><span class="java_separator">}</span><span class="java_plain"></span></code></pre> 
+        <p>Do something when things are removed:</p> 
+        <pre class=" code"><code><span class="java_plain">repositories</span><span class="java_separator">.</span><span class="java_plain">whenObjectRemoved&nbsp;</span><span class="java_separator">{</span><span class="java_plain">&nbsp;</span><span class="java_separator">}</span><span class="java_plain"></span></code></pre> 
+      </div> 
+    </section> 
+    <section class="slide"> 
+      <div class="inner"> 
+        <h2>Plugins</h2> 
+        <p>Plugins are just reusable build script code. That is, there is no functionality that only plugins can perform.</p> 
+        <p>Plugins can:</p> 
+        <ul> 
+          <li>Add new capabilities/tools (often with defaults)</li> 
+          <li>Add new conventions or extend tighten existing conventions</li> 
+        </ul> 
+        <p>Ideally, they do only one of those.</p> 
+        <p>Combining these two inseparably leads to rigidity.</p> 
+      </div> 
+    </section> 
+    <section class="slide"> 
+      <div class="inner"> 
+        <h2>Adding new capabilities</h2> 
+        <p>Adding the ability to perform some new function. For example, to compile CoffeeScript.</p> 
+        <p>Out of scope for this Webinar.</p> 
+        <p>Keep an eye on <a href="http://gradle.org/news">http://gradle.org/news</a> for announcements on a Webinar focussed on this topic.</p> 
+      </div> 
+    </section> 
+    <section class="slide"> 
+      <div class="inner"> 
+        <h2>Adding/Extending Conventions</h2> 
+        <p>Configures the project(s) to do useful work by adding/configuring tools and capabilities.</p> 
+        <p>May provide defaults, may enforce standards.</p> 
+        <p>Example conventions:</p> 
+        <ul> 
+          <li>Use JUnit 4.10 for tests</li> 
+          <li>Integration tests will be their own source set and task</li> 
+          <li>Dependencies always come from our corporate repository</li> 
+          <li>Source code must be Java 1.5 compatible</li> 
+        </ul> 
+      </div> 
+    </section> 
+    <section class="slide"> 
+      <div class="inner"> 
+        <h2>Plugin Types</h2> 
+        <p>Plugins can be packaged as either scripts or objects.</p> 
+        <p>Script plugins are <code><span class="java_separator">.</span><span class="java_plain">gradle</span></code> files.</p> 
+        <ul> 
+          <li><em>[05-plugins-script-plugin]</em></li> 
+        </ul> 
+        <p>Object plugins are compiled and on the classpath.</p> 
+        <ul> 
+          <li><em>[06-plugins-object-plugin-buildSrc]</em></li> 
+          <li><em>[07-plugins-object-plugin-repo]</em></li> 
+        </ul> 
+      </div> 
+    </section> 
+    <section class="slide"> 
+      <div class="inner"> 
+        <h2>DSL Extensions</h2> 
+        <p>If you are creating conventions the are configurable or have options, consider wrapping them in <a href="http://gradle.org/docs/current/userguide/userguide_single.html#customPluginWithConvention">DSL extensions</a>.</p> 
+        <p>DSL extensions add new constructs to the build language.</p> 
+        <p>The canonical example of an extension would be the <a href="http://gradle.org/docs/current/javadoc/org/gradle/api/tasks/SourceSetContainer.html">SourceSetContainer</a>.</p> 
+        <ul> 
+          <li><em>[demos/08-dsl-extensions]</em></li> 
+        </ul> 
+      </div> 
+    </section> 
+    <section class="slide"> 
+      <div class="inner"> 
+        <h2>Plugin Stacks</h2> 
+        <p>Sophisticated plugins, like the Java plugin, are comprised of stacks.</p> 
+        <p><code><span class="java_type">BasePlugin</span><span class="java_plain"></span></code> ← <code><span class="java_type">JavaBasePlugin</span><span class="java_plain"></span></code> ← <code><span class="java_type">JavaPlugin</span><span class="java_plain"></span></code></p> 
+        <ul> 
+          <li><code><span class="java_type">BasePlugin</span><span class="java_plain"></span></code> = general build features (language agnostic)</li> 
+          <li><code><span class="java_type">JavaBasePlugin</span><span class="java_plain"></span></code> = sensible defaults for Java tools</li> 
+          <li><code><span class="java_type">JavaPlugin</span><span class="java_plain"></span></code> = conventions for a Java project</li> 
+        </ul> 
+      </div> 
+    </section> 
+    <section class="slide"> 
+      <div class="inner"> 
+        <h2>Your own 'java' plugin</h2> 
+        <p>If those conventions don't suit, you can just apply the <code><span class="java_plain">java</span><span class="java_operator">-</span><span class="java_plain">base</span></code> plugin and build your own conventions.</p> 
+        <pre class=" code"><code><span class="java_plain">apply&nbsp;plugin</span><span class="java_operator">:</span><span class="java_plain">&nbsp;</span><span class="java_literal">'java-base'</span><span class="java_plain"></span></code></pre> 
+        <p>However, not a lot of documentation on this at this time. </p> 
+        <p>The <a href="https://github.com/gradle/gradle/blob/master/subprojects/plugins/src/main/groovy/org/gradle/api/plugins/JavaBasePlugin.java">source code</a> and the <a href="http://forums.gradle.org/" title="Community-powered support for Gradle">Gradle Forums</a> are your friends.</p> 
+      </div> 
+    </section> 
+    <section class="slide"> 
+      <div class="inner"> 
+        <h2>Init Scripts</h2> 
+        <p>Gradle <a href="http://gradle.org/docs/current/userguide/userguide_single.html#init_scripts">init scripts</a> facilitate cross project configuration.</p> 
+        <p>Init scripts work with a <a href="http://gradle.org/docs/current/dsl/org.gradle.api.invocation.Gradle.html"><code><span class="java_type">Gradle</span><span class="java_plain"></span></code></a> instance, not a <a href="http://gradle.org/docs/current/dsl/org.gradle.api.Project.html"><code><span class="java_type">Project</span><span class="java_plain"></span></code></a>.</p> 
+        <p>Looked for at:</p> 
+        <ul> 
+          <li><em>$USER_HOME</em>/.gradle/init.gradle</li> 
+          <li><em>$USER_HOME</em>/.gradle/init.d/*.gradle</li> 
+          <li><em>$GRADLE_HOME</em>/init.d/*.gradle</li> 
+        </ul> 
+        <p>Can also be specified with <code><span class="java_operator">-</span><span class="java_plain">I</span></code> command line arg.</p> 
+      </div> 
+    </section> 
+    <section class="slide"> 
+      <div class="inner"> 
+        <h2>Init Scripts (cont.)</h2> 
+        <p>What can build scripts do?</p> 
+        <ul> 
+          <li>Load plugins</li> 
+          <li>Specify plugin repositories</li> 
+          <li>Environmental configuration (CI server specific conf)</li> 
+          <li>Register listeners</li> 
+          <li>More…</li> 
+        </ul> 
+        <p>Can also do <em>anything</em> that you can do in a build script.</p> 
+        <ul> 
+          <li><em>[09-init-script-plugin-repo]</em></li> 
+        </ul> 
+      </div> 
+    </section> 
+    <section class="slide"> 
+      <div class="inner"> 
+        <h2>The Gradle Wrapper</h2> 
+        <p>The Gradle Wrapper allows you to start Gradle via some scripts that you check in to source control. These scripts will go ahead and download Gradle if the user does not have it installed on their machine.</p> 
+        <p style="text-align: center"> <a href="http://gradleware.com/registered/screencasts/the-gradle-wrapper"> <img src="img/wrapper.gif" style="box-shadow: 0px 0px 6px #888;" /> Check out the Gradle Wrapper screencast! </a> </p> 
+        <p>The wrapper doesn't have to download Gradle from our servers, it can download it from yours.</p> 
+        <p><strong>And the distribution may be customised.</strong></p> 
+      </div> 
+    </section> 
+    <section class="slide"> 
+      <div class="inner"> 
+        <h2>Custom Distributions</h2> 
+        <p>You can build a custom distribution by packaging your init script inside the Gradle distribution.</p> 
+        <p>This way, every build will implicitly use your own enterprise init script.</p> 
+        <ul> 
+          <li><em>[10-custom-distribution]</em></li> 
+        </ul> 
+      </div> 
+    </section> 
+    <section class="slide"> 
+      <div class="inner"> 
+        <h2>Custom Distributions (cont.)</h2> 
+        <p>In the future, this will be simpler. Something like…</p> 
+        <pre class=" code"><code><span class="java_plain">task</span><span class="java_separator">(</span><span class="java_plain">type</span><span class="java_operator">:</span><span class="java_plain">&nbsp;</span><span class="java_type">Wrapper</span><span class="java_separator">)</span><span class="java_plain">&nbsp;</span><span class="java_separator">{</span><span class="java_plain"></span>
+<span class="java_plain">&nbsp;&nbsp;gradleVersion&nbsp;</span><span class="java_literal">&quot;1.0&quot;</span><span class="java_plain"></span>
+<span class="java_plain">&nbsp;&nbsp;initScript&nbsp;</span><span class="java_literal">&quot;http://com.com/init/corporate-plugin.gradle&quot;</span><span class="java_plain"></span>
+<span class="java_plain">&nbsp;&nbsp;initScript&nbsp;</span><span class="java_literal">&quot;http://com.com/init/other-init-script.gradle&quot;</span><span class="java_plain"></span>
+<span class="java_separator">}</span><span class="java_plain"></span></code></pre> 
+        <p>Then the Gradle wrapper will be responsible for fetching and managing the init scripts.</p> 
+      </div> 
+    </section> 
+    <section class="slide"> 
+      <div class="inner"> 
+        <h2>Gradleware</h2> 
+        <p>The company behind Gradle.</p> 
+        <ul> 
+          <li>Employs full time engineers</li> 
+          <li>Gradle consulting, support, development services etc.</li> 
+          <li>Training: online, public and in-house</li> 
+          <li>General build automation services</li> 
+        </ul> 
+        <p style="text-align: center">Germany, Australia, UK, Poland, Austria, Canada and the US.</p> 
+        <p><img src="img/gradleware.png" alt="Gradleware Logo" /> </p> 
+        <p style="text-align: center"><a href="http://www.gradleware.com">http://www.gradleware.com</a></p> 
+        <p></p> 
+      </div> 
+    </section> 
+    <section class="slide"> 
+      <div class="inner"> 
+        <h2>Questions?</h2> 
+        <ul> 
+          <li>Questions on this webinar</li> 
+          <li>Feedback on this webinar (email me directly if you prefer)</li> 
+          <li>Ideas for future webinars</li> 
+          <li>Anything else?</li> 
+        </ul> 
+      </div> 
+    </section> 
+    <section class="slide"> 
+      <div class="inner"> 
+        <h2>More stuff…</h2> 
+        <p><img src="img/gradle.png" alt="Gradle Logo" /></p> 
+        <ul> 
+          <li><a href="http://gradleware.com/training">Gradle Training</a> 
+            <ul> 
+              <li><a href="http://gradleware.com/training">Gradle In-Depth, Chicago, Oct 9-11</a> by <a href="http://www.gradleware.com/team">Gradle Core Developer</a></li> 
+            </ul></li> 
+          <li><a href="http://gradle.org/webinars">Gradle Webinars</a> 
+            <ul> 
+              <li><a href="http://gradleware.com/news/100">Migrating and Upgrading to Gradle</a> by <a href="http://www.gradleware.com/team#szczepan-faber">Szczepan Faber</a></li> 
+            </ul></li> 
+          <li><a href="http://gradle.org/news">Gradle News</a></li> 
+          <li><a href="http://forums.gradle.org">Gradle Forums</a></li> 
+          <li><a href="http://gradleware.com/resources">Gradleware Resources</a></li> 
+        </ul> 
+      </div> 
+    </section>   
+    <div class="deck-notes"> 
+      <div class="deck-notes-header">
+        Slide Notes…
+      </div> 
+      <div class="deck-notes-container"></div> 
+    </div> 
+  </body>
+</html>
